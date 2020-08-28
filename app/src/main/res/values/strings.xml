@@ -3,4 +3,5 @@
     <string name="delete">Delete</string>
     <string name="create_macro">Create macro</string>
     <string name="create_action">Create action</string>
+    <string name="choose_image">Choose image</string>
 </resources>
