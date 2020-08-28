@@ -1,10 +1,12 @@
 package me.ousunny.donut
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_macro.*
 
 class ViewMacro : AppCompatActivity() {
@@ -20,8 +22,20 @@ class ViewMacro : AppCompatActivity() {
         val bundle = intent.extras
         val data: Macro? = bundle?.getParcelable("data") as Macro?
         if (data != null) {
-            Log.d("AAAA", data.actions.count().toString())
             rv_macro.adapter = ActionsAdapter(this, data.actions)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.create_action) {
+            val intent = Intent(this, CreateActionActivity::class.java)
+            startActivity(intent)
+        }
+        return true
     }
 }

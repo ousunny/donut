@@ -10,8 +10,10 @@ class CreateActionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_action)
 
+        supportActionBar?.hide()
+
         iv_screenshot.setImageResource(R.drawable.ic_launcher_foreground)
-        
+
     }
 
 }
