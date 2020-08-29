@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,13 +12,37 @@
         android:layout_height="match_parent"
         android:onClick="toggleOverlay"/>
 
-    <Button
-        android:id="@+id/btn_choose_image"
-        android:text="@string/choose_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="chooseImage"
-        android:visibility="invisible" />
+    <LinearLayout
+        android:id="@+id/group_action_btn"
+        android:background="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/btn_choose_image"
+            android:text="@string/choose_image"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="chooseImage" />
+
+        <Button
+            android:id="@+id/btn_add_action"
+            android:text="@string/add_an_action"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_save_action"
+            android:text="@string/save"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
-</FrameLayout>
+
+</RelativeLayout>

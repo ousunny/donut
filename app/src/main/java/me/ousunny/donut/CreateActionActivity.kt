@@ -66,7 +66,7 @@ class CreateActionActivity : AppCompatActivity() {
                 this.imageBitmap = bitmap
 
                 iv_screenshot.setImageBitmap(bitmap)
-                btn_choose_image.visibility = View.INVISIBLE
+                group_action_btn.visibility = View.INVISIBLE
             }
         }
     }
@@ -82,10 +82,10 @@ class CreateActionActivity : AppCompatActivity() {
     }
 
     fun toggleOverlay(view: View) {
-         if (btn_choose_image.visibility == View.INVISIBLE)
-             btn_choose_image.visibility = View.VISIBLE
+         if (group_action_btn.visibility == View.INVISIBLE)
+             group_action_btn.visibility = View.VISIBLE
          else
-             btn_choose_image.visibility = View.INVISIBLE
+             group_action_btn.visibility = View.INVISIBLE
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
