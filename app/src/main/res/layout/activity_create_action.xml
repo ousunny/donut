@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateActionActivity">
 
+    <ImageView
+        android:id="@+id/iv_screenshot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="toggleOverlay"/>
+
     <Button
         android:id="@+id/btn_choose_image"
         android:text="@string/choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="chooseImage"/>
+        android:onClick="chooseImage"
+        android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/iv_screenshot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+
+</FrameLayout>

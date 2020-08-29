@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_action.*
@@ -16,10 +17,23 @@ class CreateActionActivity : AppCompatActivity() {
 
     private var imageBitmap: Bitmap? = null
     private val CHOOSE_IMAGE_REQUEST = 1
+//    private var position = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_action)
+
+//        var listener = View.OnTouchListener(function = { view, motionEvent ->
+//            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
+//                view.x = motionEvent.rawX - view.width / 2
+//                view.y = motionEvent.rawY - view.height / 2
+//                position = "${view.x},${view.y}"
+//            }
+//            true
+//        })
+
+//        tv_position.setOnTouchListener(listener)
+
 
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -51,8 +65,8 @@ class CreateActionActivity : AppCompatActivity() {
             bitmap?.let {
                 this.imageBitmap = bitmap
 
-                btn_choose_image.visibility = View.GONE
                 iv_screenshot.setImageBitmap(bitmap)
+                btn_choose_image.visibility = View.INVISIBLE
             }
         }
     }
@@ -65,6 +79,13 @@ class CreateActionActivity : AppCompatActivity() {
             null
         }
 
+    }
+
+    fun toggleOverlay(view: View) {
+         if (btn_choose_image.visibility == View.INVISIBLE)
+             btn_choose_image.visibility = View.VISIBLE
+         else
+             btn_choose_image.visibility = View.INVISIBLE
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
