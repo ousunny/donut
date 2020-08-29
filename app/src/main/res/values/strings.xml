@@ -6,4 +6,6 @@
     <string name="choose_image">Choose image</string>
     <string name="add_an_action">Add an action</string>
     <string name="save">Save</string>
+    <string name="check">Check</string>
+    <string name="tap">Tap</string>
 </resources>

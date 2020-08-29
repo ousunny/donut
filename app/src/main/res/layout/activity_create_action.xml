@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateActionActivity">
@@ -14,35 +13,102 @@
 
     <LinearLayout
         android:id="@+id/group_action_btn"
-        android:background="@android:color/black"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:visibility="invisible">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="invisible"
+        android:background="@android:color/black"
+        android:layout_alignParentTop="true">
 
-        <Button
-            android:id="@+id/btn_choose_image"
-            android:text="@string/choose_image"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="chooseImage" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
 
-        <Button
-            android:id="@+id/btn_add_action"
-            android:text="@string/add_an_action"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_choose_image"
+                android:text="@string/choose_image"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="chooseImage" />
 
-        <Button
-            android:id="@+id/btn_save_action"
-            android:text="@string/save"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_save_action"
+                android:text="@string/save"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
+
+            <Button
+                android:id="@+id/btn_add_check"
+                android:text="@string/check"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_add_tap"
+                android:text="@string/tap"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
+
+            <Button
+                android:id="@+id/btn_swipe_left"
+                android:text="Swipe left"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_swipe_up"
+                android:text="Swipe up"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_swipe_down"
+                android:text="Swipe down"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_swipe_right"
+                android:text="Swipe right"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <SeekBar
+                android:id="@+id/sb_action_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:min="10"
+                android:max="100"
+                android:minHeight="48dp"
+                android:background="@android:color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
