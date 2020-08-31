@@ -12,7 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_macro.view.*
 
-class MacrosAdapter(val context: Context, val macros: Array<Macro>): RecyclerView.Adapter<MacrosAdapter.MacroViewHolder>() {
+class MacrosAdapter(val context: Context, val macros: List<Macro>): RecyclerView.Adapter<MacrosAdapter.MacroViewHolder>() {
 
     class MacroViewHolder(val card: View): RecyclerView.ViewHolder(card)
 

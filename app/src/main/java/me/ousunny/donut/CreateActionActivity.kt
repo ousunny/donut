@@ -15,6 +15,7 @@ import android.widget.RelativeLayout
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_action.*
+import me.ousunny.donut.db.MacroDbTable
 import java.io.IOException
 
 class CreateActionActivity : AppCompatActivity() {
@@ -105,6 +106,16 @@ class CreateActionActivity : AppCompatActivity() {
             null
         }
 
+    }
+
+    fun saveAction(view: View) {
+
+        val test: Macro = Macro(
+            "A quick macro",
+            actions = listOf(
+            Action("Action 3", position = "1.0,5.0"),
+            Action("Action 4", position = "1.0,5.0")))
+        MacroDbTable(this).store(test)
     }
 
     fun toggleOverlay(view: View) {

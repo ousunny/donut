@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_action.view.*
 import kotlinx.android.synthetic.main.single_macro.view.*
 
-class ActionsAdapter(val context: Context, val actions: Array<Action>): RecyclerView.Adapter<ActionsAdapter.ActionViewHolder>() {
+class ActionsAdapter(val context: Context, val actions: List<Action>): RecyclerView.Adapter<ActionsAdapter.ActionViewHolder>() {
 
     class ActionViewHolder(val card: View): RecyclerView.ViewHolder(card)
 
