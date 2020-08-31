@@ -7,8 +7,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_action.*
 import java.io.IOException
@@ -17,22 +21,43 @@ class CreateActionActivity : AppCompatActivity() {
 
     private var imageBitmap: Bitmap? = null
     private val CHOOSE_IMAGE_REQUEST = 1
-//    private var position = ""
+    private var position = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_action)
 
-//        var listener = View.OnTouchListener(function = { view, motionEvent ->
-//            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
-//                view.x = motionEvent.rawX - view.width / 2
-//                view.y = motionEvent.rawY - view.height / 2
-//                position = "${view.x},${view.y}"
-//            }
-//            true
-//        })
+        var params= tv_action.layoutParams
+        tv_action.alpha = 0.5f
 
-//        tv_position.setOnTouchListener(listener)
+        sb_action_size?.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar, p1: Int, p2: Boolean) {
+                params.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    p0.progress.toFloat(), resources.displayMetrics).toInt()
+                params.height = params.width
+
+                tv_action.layoutParams = params
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                Log.d("AAAA", p0?.progress.toString())
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar) {
+                Log.d("AAAA", p0?.progress.toString())
+            }
+        })
+
+        var listener = View.OnTouchListener(function = { view, motionEvent ->
+            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
+                view.x = motionEvent.rawX - view.width / 2
+                view.y = motionEvent.rawY - view.height / 2
+                position = "${view.x},${view.y}"
+            }
+            true
+        })
+
+        tv_action.setOnTouchListener(listener)
 
 
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
