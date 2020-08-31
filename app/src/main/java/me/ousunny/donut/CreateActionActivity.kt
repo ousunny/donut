@@ -27,6 +27,7 @@ class CreateActionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_action)
 
+        tv_action.visibility = View.INVISIBLE
         var params= tv_action.layoutParams
         tv_action.alpha = 0.5f
 
@@ -48,14 +49,14 @@ class CreateActionActivity : AppCompatActivity() {
             }
         })
 
-        var listener = View.OnTouchListener(function = { view, motionEvent ->
+        val listener = View.OnTouchListener { view, motionEvent ->
             if (motionEvent.action == MotionEvent.ACTION_MOVE) {
                 view.x = motionEvent.rawX - view.width / 2
                 view.y = motionEvent.rawY - view.height / 2
                 position = "${view.x},${view.y}"
             }
             true
-        })
+        }
 
         tv_action.setOnTouchListener(listener)
 
@@ -107,10 +108,13 @@ class CreateActionActivity : AppCompatActivity() {
     }
 
     fun toggleOverlay(view: View) {
-         if (group_action_btn.visibility == View.INVISIBLE)
+         if (group_action_btn.visibility == View.INVISIBLE) {
+             tv_action.visibility = View.VISIBLE
              group_action_btn.visibility = View.VISIBLE
-         else
+         } else {
+            tv_action.visibility = View.INVISIBLE
              group_action_btn.visibility = View.INVISIBLE
+         }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

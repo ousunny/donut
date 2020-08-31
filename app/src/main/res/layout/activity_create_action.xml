@@ -114,9 +114,9 @@
     <TextView
         android:id="@+id/tv_action"
         android:background="@android:color/black"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:textIsSelectable="false"
-        android:text="O"
         android:layout_width="32dp"
         android:layout_height="32dp" />
 
