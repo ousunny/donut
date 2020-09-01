@@ -23,12 +23,8 @@ class ActionsAdapter(val context: Context, val actions: List<Action>): RecyclerV
     }
 
     override fun onBindViewHolder(holder: ActionsAdapter.ActionViewHolder, position: Int) {
-
-
         if (holder != null) {
-            Log.d("AAAA", actions[1].title)
             holder.card.tv_action_title.text = actions[position].title
-
         }
     }
 

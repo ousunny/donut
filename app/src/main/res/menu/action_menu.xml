@@ -6,4 +6,8 @@
         android:title="@string/create_action"
         app:showAsAction="ifRoom" />
 
+    <item android:id="@+id/save_macro"
+        android:title="@string/save"
+        app:showAsAction="ifRoom" />
+
 </menu>

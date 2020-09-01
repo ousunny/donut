@@ -109,13 +109,14 @@ class CreateActionActivity : AppCompatActivity() {
     }
 
     fun saveAction(view: View) {
-
-        val test: Macro = Macro(
-            "A quick macro",
-            actions = listOf(
-            Action("Action 3", position = "1.0,5.0"),
-            Action("Action 4", position = "1.0,5.0")))
-        MacroDbTable(this).store(test)
+        val intent = Intent(this, ViewMacro::class.java)
+        val action = Action(
+            "Refresh",
+            position = "1.0,5.0"
+        )
+        intent.putExtra("action", action)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     fun toggleOverlay(view: View) {
