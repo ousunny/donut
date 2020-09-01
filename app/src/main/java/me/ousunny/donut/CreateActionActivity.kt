@@ -15,6 +15,7 @@ import android.widget.RelativeLayout
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_action.*
+import me.ousunny.donut.db.DonutDb
 import me.ousunny.donut.db.MacroDbTable
 import java.io.IOException
 

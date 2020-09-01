@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import me.ousunny.donut.db.MacroDbTable
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,10 @@ class MainActivity : AppCompatActivity() {
 //        iv_screenshot?.setImageResource(R.drawable.ic_launcher_foreground)
         rv_main.setHasFixedSize(true)
         rv_main.layoutManager = LinearLayoutManager(this)
-        rv_main.adapter = MacrosAdapter(this, getSampleMacros())
+
+        val macros = MacroDbTable(this).getAllMacros()
+        if (macros.count() > 0)
+            rv_main.adapter = MacrosAdapter(this, macros)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

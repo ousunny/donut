@@ -9,11 +9,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.view_macro.*
+import me.ousunny.donut.db.MacroDbTable
 import java.util.*
 
 class ViewMacro : AppCompatActivity() {
 
-    var macros: Macro? = null
+    var macro: Macro? = null
 
     val CREATE_ACTION_REQUEST = 1
 
@@ -26,12 +27,12 @@ class ViewMacro : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null)
-            macros = bundle?.getParcelable("data") as Macro?
+            macro = bundle?.getParcelable("data") as Macro?
         else
-            macros = Macro("Default title", mutableListOf())
+            macro = Macro("Default title", mutableListOf())
 
-        if (macros != null)
-            rv_macro.adapter = ActionsAdapter(this, macros!!.actions)
+        if (macro != null)
+            rv_macro.adapter = ActionsAdapter(this, macro!!.actions)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -54,9 +55,11 @@ class ViewMacro : AppCompatActivity() {
 
         if (requestCode == CREATE_ACTION_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val action = data.getParcelableExtra<Action>("action")
-            action?.let { macros?.actions?.add(it) }
+            action?.let { macro?.actions?.add(it) }
 
-            rv_macro.adapter?.notifyItemInserted(macros?.actions?.count()!! - 1)
+            macro?.let { MacroDbTable(this).store(it) }
+            
+            rv_macro.adapter?.notifyItemInserted(macro?.actions?.count()!! - 1)
         }
     }
 
