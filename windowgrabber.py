@@ -7,7 +7,7 @@ class WindowGrabber:
 
     screenshot = None
 
-    def __init__(self, window_name=None, desktop_capture=False):
+    def __init__(self, window_name=None, desktop_capture=False, titlebar=True):
         self.lock = Lock()
 
         self.hwnd = win32gui.FindWindow(None, window_name)
@@ -20,12 +20,18 @@ class WindowGrabber:
         self.w = window_rect[2] - window_rect[0]
         self.h = window_rect[3] - window_rect[1]
 
-        border_pixels = 8
-        titlebar_pixels = 30
-        self.w = self.w - (border_pixels * 2)
-        self.h = self.h - titlebar_pixels - border_pixels
-        self.cropped_x = border_pixels
-        self.cropped_y = titlebar_pixels
+        if titlebar:
+            border_pixels = 8
+            titlebar_pixels = 30
+        else:
+            border_pixels = 0
+            titlebar_pixels = 0
+
+        if titlebar:
+            self.w = self.w - (border_pixels * 2)
+            self.h = self.h - titlebar_pixels - border_pixels
+            self.cropped_x = border_pixels
+            self.cropped_y = titlebar_pixels
 
         if desktop_capture:
             self.cropped_x = window_rect[0] + border_pixels

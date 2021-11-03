@@ -5,17 +5,18 @@ from detector import Detector
 from vision import Vision
 from matchtemplate import MatchTemplate
 
-windowGrabber = WindowGrabber("Diablo II: Resurrected", True)
+windowGrabber = WindowGrabber(
+    "Diablo II: Resurrected", desktop_capture=True, titlebar=True
+)
 detector = Detector()
 vision = Vision()
 
 red_portal_template = MatchTemplate(
-    needle_img_path="images/needle/red_portal.png", threshold=0.8
+    needle_img_path="images/needle/red_portal.png", threshold=0.5
 )
 
 windowGrabber.start()
 detector.start()
-
 
 loop_time = time()
 while True:
