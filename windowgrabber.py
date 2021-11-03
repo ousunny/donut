@@ -1,9 +1,15 @@
 import numpy as np
 import win32gui, win32ui, win32con
+from threading import Thread, Lock
 
 
 class WindowGrabber:
+
+    screenshot = None
+
     def __init__(self, window_name=None, desktop_capture=False):
+        self.lock = Lock()
+
         self.hwnd = win32gui.FindWindow(None, window_name)
 
         if not self.hwnd:
@@ -58,3 +64,19 @@ class WindowGrabber:
         img = np.ascontiguousarray(img)
 
         return img
+
+    def start(self):
+        self.stopped = False
+        t = Thread(target=self.run)
+        t.start()
+
+    def stop(self):
+        self.stopped = True
+
+    def run(self):
+        while not self.stopped:
+            screenshot = self.get()
+
+            self.lock.acquire()
+            self.screenshot = screenshot
+            self.lock.release()

@@ -3,21 +3,21 @@ import numpy as np
 
 
 class MatchTemplate:
-    def find(
-        haystick_img,
-        needle_img_path,
-        threshold=0.5,
-        max_results=10,
-        method=cv.TM_CCOEFF_NORMED,
+    def __init__(
+        self, needle_img_path, threshold=0.5, max_results=10, method=cv.TM_CCOEFF_NORMED
     ):
-        needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
+        self.needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
+        self.threshold = threshold
+        self.max_results = max_results
+        self.method = method
 
-        needle_w = needle_img.shape[1]
-        needle_h = needle_img.shape[0]
+    def find(self, haystick_img):
+        needle_w = self.needle_img.shape[1]
+        needle_h = self.needle_img.shape[0]
 
-        result = cv.matchTemplate(haystick_img, needle_img, method)
+        result = cv.matchTemplate(haystick_img, self.needle_img, self.method)
 
-        locations = np.where(result >= threshold)
+        locations = np.where(result >= self.threshold)
         locations = list(zip(*locations[::-1]))
 
         if not locations:
@@ -36,8 +36,8 @@ class MatchTemplate:
 
         rectangles, weights = cv.groupRectangles(rectangles, groupThreshold=1, eps=0.5)
 
-        if len(rectangles) > max_results:
+        if len(rectangles) > self.max_results:
             print("Too many results. Consider raising the threshold.")
-            rectangles = rectangles[:max_results]
+            rectangles = rectangles[: self.max_results]
 
         return rectangles
