@@ -18,7 +18,7 @@ class Detector:
 
     def updateTarget(self, target):
         self.lock.acquire()
-        self.currentTarget = target
+        self.current_target = target
         self.lock.release()
 
     def start(self):
@@ -32,6 +32,6 @@ class Detector:
     def run(self):
         while not self.stopped:
             if not self.screenshot is None:
-                rectangles = self.currentTarget.find(self.screenshot)
+                rectangles = self.current_target.find(self.screenshot)
 
                 self.rectangles = rectangles

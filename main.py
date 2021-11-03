@@ -5,8 +5,8 @@ from detector import Detector
 from vision import Vision
 from matchtemplate import MatchTemplate
 
-windowGrabber = WindowGrabber(
-    "Diablo II: Resurrected", desktop_capture=True, titlebar=True
+window_grabber = WindowGrabber(
+    "Diablo II: Resurrected", desktop_capture=True, titlebar=False
 )
 detector = Detector()
 vision = Vision()
@@ -15,18 +15,18 @@ red_portal_template = MatchTemplate(
     needle_img_path="images/needle/red_portal.png", threshold=0.5
 )
 
-windowGrabber.start()
+window_grabber.start()
 detector.start()
 
 loop_time = time()
 while True:
-    if windowGrabber.screenshot is None:
+    if window_grabber.screenshot is None:
         continue
 
-    detector.update(windowGrabber.screenshot)
+    detector.update(window_grabber.screenshot)
     detector.updateTarget(red_portal_template)
 
-    output_img = vision.draw_rectangles(windowGrabber.screenshot, detector.rectangles)
+    output_img = vision.draw_rectangles(window_grabber.screenshot, detector.rectangles)
 
     # img_resized = cv.resize(img, (960, 540))
     cv.imshow("Donut", output_img)
@@ -36,7 +36,7 @@ while True:
 
     key = cv.waitKey(1)
     if key == ord("q"):
-        windowGrabber.stop()
+        window_grabber.stop()
         detector.stop()
         cv.destroyAllWindows()
         break
