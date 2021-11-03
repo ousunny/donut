@@ -1,16 +1,26 @@
 import cv2 as cv
 from time import time
 from windowgrabber import WindowGrabber
+from detector import Detector
+from vision import Vision
 
-windowGrabber = WindowGrabber("ELYON (64-bit, DX11)", True)
+detector = Detector()
+vision = Vision()
+
+windowGrabber = WindowGrabber("Diablo II: Resurrected", True)
 loop_time = time()
 while True:
     img = windowGrabber.get()
 
-    img_resized = cv.resize(img, (960, 540))
-    cv.imshow("Donut", img_resized)
+    rectangles = detector.matchTemplate(
+        haystack_img=img, needle_img_path="images/needle/red_portal.png", threshold=0.8
+    )
+    output_img = vision.draw_rectangles(img, rectangles)
 
-    print("FPS {}".format(1 / (time() - loop_time)))
+    # img_resized = cv.resize(img, (960, 540))
+    cv.imshow("Donut", output_img)
+
+    print("FPS: {}".format(int(1 / (time() - loop_time))))
     loop_time = time()
 
     key = cv.waitKey(1)
