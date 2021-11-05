@@ -6,8 +6,12 @@ from threading import Thread, Lock
 class WindowGrabber:
 
     screenshot = None
+    w = 0
+    h = 0
+    offset_x = 0
+    offset_y = 0
 
-    def __init__(self, window_name=None, desktop_capture=False, titlebar=True):
+    def __init__(self, window_name=None, desktop_capture=False, titlebar=False):
         self.lock = Lock()
 
         self.hwnd = win32gui.FindWindow(None, window_name)
@@ -32,14 +36,15 @@ class WindowGrabber:
             self.h = self.h - titlebar_pixels - border_pixels
             self.cropped_x = border_pixels
             self.cropped_y = titlebar_pixels
+            self.offset_x = window_rect[0] + self.cropped_x
+            self.offset_y = window_rect[1] + self.cropped_y
 
         if desktop_capture:
             self.cropped_x = window_rect[0] + border_pixels
             self.cropped_y = window_rect[1] + titlebar_pixels
             self.hwnd = win32gui.GetDesktopWindow()
-
-        self.offset_x = window_rect[0] + self.cropped_x
-        self.offset_y = window_rect[1] + self.cropped_y
+            self.offset_x = self.cropped_x
+            self.offset_y = self.cropped_y
 
     def get(self):
         w_dc = win32gui.GetWindowDC(self.hwnd)
