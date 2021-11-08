@@ -1,15 +1,20 @@
 import cv2 as cv
+from random import randint
 
 
 class Vision:
-    def get_click_points(self, rectangles):
+    def get_click_points(self, rectangles, random=False):
         points = []
 
         for (x, y, w, h) in rectangles:
-            center_x = x + int(w / 2)
-            center_y = y + int(h / 2)
+            if random:
+                click_x = randint(x, x + w)
+                click_y = randint(y, y + h)
+            else:
+                click_x = x + int(w / 2)
+                click_y = y + int(h / 2)
 
-            points.append((center_x, center_y))
+            points.append((click_x, click_y))
 
         return points
 
