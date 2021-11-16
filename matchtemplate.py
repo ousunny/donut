@@ -4,7 +4,11 @@ import numpy as np
 
 class MatchTemplate:
     def __init__(
-        self, needle_img_path, threshold=0.5, max_results=10, method=cv.TM_CCOEFF_NORMED
+        self,
+        needle_img_path,
+        threshold=0.5,
+        max_results=10,
+        method=cv.TM_CCOEFF_NORMED,
     ):
         self.needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
         self.threshold = threshold

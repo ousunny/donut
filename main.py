@@ -1,3 +1,4 @@
+from typing import Match
 import cv2 as cv
 from time import time
 from windowgrabber import WindowGrabber
@@ -7,9 +8,10 @@ from bot import BotState, Bot
 from matchtemplate import MatchTemplate
 from cascade import Cascade
 
-window_grabber = WindowGrabber(
-    "Diablo II: Resurrected", desktop_capture=True, titlebar=True
-)
+from routines.routine_opencloseskillwindow import Routine_OpenCloseSkillWindow
+
+
+window_grabber = WindowGrabber("Hero Siege", desktop_capture=False, titlebar=True)
 detector = Detector()
 vision = Vision()
 bot = Bot(
@@ -17,15 +19,15 @@ bot = Bot(
     (window_grabber.w, window_grabber.h),
 )
 
-red_portal_template = MatchTemplate(
-    needle_img_path="images/needle/red_portal.png", threshold=0.9
-)
+# cascade_campfire = Cascade("images/campfire/cascade/cascade.xml")
 
-cascade_red_portal = Cascade("images/red_portal/cascade/cascade.xml")
+routine = Routine_OpenCloseSkillWindow()
 
 window_grabber.start()
 detector.start()
 bot.start()
+
+bot.update_routine(routine)
 
 loop_time = time()
 while True:
@@ -33,7 +35,7 @@ while True:
         continue
 
     detector.update(window_grabber.screenshot)
-    detector.updateTarget(cascade_red_portal)
+    detector.update_target(routine.current_action.detection_item)
 
     if bot.state == BotState.INITIALIZING:
         targets = vision.get_click_points(detector.rectangles, random=True)
@@ -65,11 +67,11 @@ while True:
         break
     elif key == ord("f"):
         cv.imwrite(
-            "images/red_portal/positive/{}.jpg".format(loop_time),
+            "images/campfire/positive/{}.jpg".format(loop_time),
             window_grabber.screenshot,
         )
     elif key == ord("d"):
         cv.imwrite(
-            "images/red_portal/negative/{}.jpg".format(loop_time),
+            "images/campfire/negative/{}.jpg".format(loop_time),
             window_grabber.screenshot,
         )

@@ -7,6 +7,7 @@ from matchtemplate import MatchTemplate
 class Detector:
     rectangles = []
     screenshot = None
+    current_target = None
 
     def __init__(self):
         self.lock = Lock()
@@ -16,7 +17,7 @@ class Detector:
         self.screenshot = screenshot
         self.lock.release()
 
-    def updateTarget(self, target):
+    def update_target(self, target):
         self.lock.acquire()
         self.current_target = target
         self.lock.release()

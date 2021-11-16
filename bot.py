@@ -20,6 +20,7 @@ class Bot:
 
     state = None
     targets = []
+    routine = None
 
     def __init__(self, window_offset, window_size):
         self.lock = Lock()
@@ -37,7 +38,8 @@ class Bot:
     def mouse_over_target(self, target_position):
         targets = self.order_targets_by_distance(self.targets)
         screen_x, screen_y = self.get_screen_position(targets[0])
-        pyautogui.moveTo(x=screen_x, y=screen_y)
+        pyautogui.moveTo(x=screen_x, y=screen_y, duration=2)
+        pyautogui.click()
 
     def click_targets(self):
         targets = self.order_targets_by_distance(self.targets)
@@ -49,8 +51,13 @@ class Bot:
                 break
 
             target_position = targets[target_index]
-
-            pyautogui.moveTo(target_position[0], target_position[1])
+            screen_x, screen_y = self.get_screen_position(target_position)
+            pyautogui.moveTo(screen_x, screen_y, duration=1)
+            sleep(0.5)
+            pyautogui.mouseDown(
+                button=pyautogui.PRIMARY,
+            )
+            pyautogui.mouseUp(button=pyautogui.PRIMARY)
 
             target_index += 1
 
@@ -109,6 +116,11 @@ class Bot:
         self.screenshot = screenshot
         self.lock.release()
 
+    def update_routine(self, routine):
+        self.lock.acquire()
+        self.routine = routine
+        self.lock.release()
+
     def start(self):
         self.stopped = False
         t = Thread(target=self.run)
@@ -122,29 +134,42 @@ class Bot:
             if self.state == BotState.INITIALIZING:
                 if time() > self.timestamp + self.INITIALIZING_TIME_SECONDS:
                     self.lock.acquire()
+
                     self.state = BotState.SEARCHING
+
                     self.lock.release()
             elif self.state == BotState.SEARCHING:
                 has_targets = self.has_targets()
 
                 if has_targets:
-                    self.mouse_over_target(self.targets[0])
+                    # self.mouse_over_target(self.targets[0])
 
                     self.lock.acquire()
+
                     self.state = BotState.MOVING
+
                     self.lock.release()
-                else:
-                    pass
             elif self.state == BotState.MOVING:
                 if not self.has_stopped_moving():
                     sleep(0.5)
                 else:
                     self.lock.acquire()
+
                     self.timestamp = time()
+
                     self.state = BotState.ACTION
+
                     self.lock.release()
+
+                    self.click_targets()
             elif self.state == BotState.ACTION:
-                if time() > self.timestamp + self.ACTION_TIME_SECONDS:
+                if time() > self.timestamp + self.routine.current_action.wait_time:
                     self.lock.acquire()
+
+                    self.targets = []
+                    self.routine.next_action()
+                    print(self.routine.current_action.name)
+
                     self.state = BotState.SEARCHING
+
                     self.lock.release()
