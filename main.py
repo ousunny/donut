@@ -8,7 +8,7 @@ from bot import BotState, Bot
 from matchtemplate import MatchTemplate
 from cascade import Cascade
 
-from routines.routine_opencloseskillwindow import Routine_OpenCloseSkillWindow
+import routines.routine_opencloseskillwindow as routine_opencloseskillwindow
 
 
 window_grabber = WindowGrabber("Hero Siege", desktop_capture=False, titlebar=True)
@@ -21,7 +21,7 @@ bot = Bot(
 
 # cascade_campfire = Cascade("images/campfire/cascade/cascade.xml")
 
-routine = Routine_OpenCloseSkillWindow()
+routine = routine_opencloseskillwindow.get()
 
 window_grabber.start()
 detector.start()
